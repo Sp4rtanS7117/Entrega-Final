@@ -51,7 +51,34 @@ async function cargarCatalogo() {
 
   try {
     const respuesta = await fetch('assets/data/properties.json');
-    const propiedades = await respuesta.json();
+    let propiedades = await respuesta.json();
+
+    // Sincronización en vivo con base de datos Supabase
+    if (window.db) {
+      try {
+        const locacionesDB = await window.db.obtenerLocaciones();
+        if (locacionesDB && locacionesDB.length > 0) {
+          const adaptadas = locacionesDB.map(loc => ({
+            id: `db-${loc.id}`,
+            titulo: loc.nombre,
+            ubicacion: loc.ubicacion,
+            categoria: loc.categoria || 'hosterias',
+            splats: loc.splats || '1.5M Splats',
+            metodo: 'Escaneo 3DGS Cloud',
+            area: loc.area || '250 m²',
+            capacidad: loc.capacidad || '8 Huéspedes',
+            imagen: loc.imagen || 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80',
+            archivo3D: loc.archivo_modelo || 'assets/models/scene.compressed.ply',
+            superSplatId: loc.supersplat_id || '32dd9d7e',
+            estado: 'Disponible'
+          }));
+          propiedades = [...propiedades, ...adaptadas];
+        }
+      } catch (errDB) {
+        console.warn('No se pudieron recuperar locaciones de Supabase:', errDB);
+      }
+    }
+
     mostrarTarjetas(propiedades, 'todos');
 
     // Conectar eventos a los botones de filtro  ( ͡° ͜ʖ ͡°)
