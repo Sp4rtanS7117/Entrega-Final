@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard • Installation 0°</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body style="padding: 32px 20px;">
+
+  <div class="contenedor-admin">
+    
+
+    <header class="encabezado-admin">
+      <div>
+        <span class="insignia-seccion">Módulo Administrativo</span>
+        <h1 class="titulo-admin">Panel de Gestión • Installation 0°</h1>
+      </div>
+      <div>
+        <a href="index.html" class="btn-secundario">← Volver al Sitio</a>
+        <button id="btnCerrarSesion" class="btn-secundario" style="display: none; margin-left: 8px;">Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <div id="cajaLogin" class="caja-login">
+      <h2>Acceso Restringido</h2>
+      <p class="subtitulo-login">Ingresa credenciales de operador para gestionar locaciones y revisar leads.</p>
+      
+      <form id="formLogin">
+        <div class="grupo-campo" style="text-align: left; margin-bottom: 14px;">
+          <label for="usuarioAdmin">Usuario Operador</label>
+          <input type="text" id="usuarioAdmin" value="admin@installation0.ec" required>
+        </div>
+
+        <div class="grupo-campo" style="text-align: left; margin-bottom: 20px;">
+          <label for="claveAdmin">Contraseña</label>
+          <input type="password" id="claveAdmin" placeholder="Ingresa tu clave" required>
+        </div>
+
+        <button type="submit" class="btn-principal" style="width: 100%;">Ingresar al Panel</button>
+        <div id="errorLogin" style="color: #ff6b6b; font-size: 0.8rem; margin-top: 10px; display: none;"></div>
+      </form>
+    </div>
+
+    <div id="areaDashboard" class="area-dashboard">
+      
+      <!-- telemtría -->
+      <div class="grid-metricas-admin">
+        <div class="tarjeta-metrica-admin">
+          <span class="metrica-etiqueta">Locaciones Activas</span>
+          <div class="metrica-numero-admin" id="contadorLocaciones">0</div>
+          <span class="metrica-estado-verde">● Conectado a Supabase</span>
+        </div>
+
+        <div class="tarjeta-metrica-admin">
+          <span class="metrica-etiqueta">Solicitudes Recibidas</span>
+          <div class="metrica-numero-admin" id="contadorProspectos" style="color: var(--dorado-suave);">0</div>
+          <span class="metrica-estado-gris">Leads en base de datos</span>
+        </div>
+
+        <div class="tarjeta-metrica-admin">
+          <span class="metrica-etiqueta">Splats Totales en Servidor</span>
+          <div class="metrica-numero-admin" id="contadorSplatsTotales" style="color: var(--texto-blanco);">4.9M</div>
+          <span class="metrica-estado-gris">3 Modelos Comprimidos</span>
+        </div>
+      </div>
+
+      <!-- Bandeja de Mensajes y Prospectos Reales (Nuevo Módulo) -->
+      <div class="caja-formulario-admin">
+        <h3 class="subtitulo-seccion-admin">Bandeja de Contactos y Prospectos (Leads en Vivo)</h3>
+        <p style="color: var(--texto-gris); font-size: 0.85rem; margin-bottom: 16px;">
+          Clientes que han enviado el formulario de cotización desde la web oficial.
+        </p>
+        <div class="tabla-contenedor">
+          <table class="tabla-admin">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Nombre / Empresa</th>
+                <th>Correo</th>
+                <th>Tipo</th>
+                <th>Área</th>
+                <th>Ciudad</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoTablaProspectos">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--texto-apagado);">Cargando prospectos desde Supabase...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Agregar catalogo -->
+      <div class="caja-formulario-admin">
+        <h3 class="subtitulo-seccion-admin">Registrar Nueva Locación 3DGS</h3>
+        
+        <form id="formNuevaLocacion" class="grid-form-locacion">
+          <div class="grupo-campo">
+            <label for="nuevoNombre">Nombre del Espacio *</label>
+            <input type="text" id="nuevoNombre" placeholder="Ej. Villa Panorámica" required>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="nuevaUbicacion">Ubicación Geográfica *</label>
+            <input type="text" id="nuevaUbicacion" placeholder="Ej. Baños de Agua Santa, Tungurahua" required>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="nuevaCategoria">Categoría</label>
+            <select id="nuevaCategoria">
+              <option value="hosterias">Hosterías & Haciendas</option>
+              <option value="airbnb">Airbnb & Glamping</option>
+            </select>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="nuevosSplats">Conteo de Splats</label>
+            <input type="text" id="nuevosSplats" placeholder="Ej. 1.8M Splats">
+          </div>
+
+          <div class="grupo-campo">
+            <label for="nuevoArchivo">Ruta / Enlace del Modelo 3D</label>
+            <input type="text" id="nuevoArchivo" placeholder="assets/models/villa.compressed.ply">
+          </div>
+
+          <div class="grupo-campo">
+            <label for="nuevaImagen">Enlace de Foto de Portada</label>
+            <input type="text" id="nuevaImagen" placeholder="https://images.unsplash.com/...">
+          </div>
+
+          <div style="grid-column: 1 / -1; margin-top: 10px;">
+            <button type="submit" class="btn-principal">Guardar Locación</button>
+            <span id="mensajeAdminForm" class="mensaje-admin-estado"></span>
+          </div>
+        </form>
+      </div>
+
+      <!-- lista de locaciones -->
+      <div class="caja-formulario-admin">
+        <h3 class="subtitulo-seccion-admin">Locaciones en Base de Datos</h3>
+        <div class="tabla-contenedor">
+          <table class="tabla-admin">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Ubicación</th>
+                <th>Categoría</th>
+                <th>Splats</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoTablaAdmin">
+              <!-- Se cargan dinámicamente desde Supabase -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SDK de Supabase Módulo de Base de Datos -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/db.js"></script>
+
+  <script>
+    const formLogin = document.getElementById('formLogin');
+    const cajaLogin = document.getElementById('cajaLogin');
+    const areaDashboard = document.getElementById('areaDashboard');
+    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+    const errorLogin = document.getElementById('errorLogin');
+    const contadorLocaciones = document.getElementById('contadorLocaciones');
+
+    // Comprobación de seguridad al cargar la página
+    if (window.db && window.db.estaAutenticado()) {
+      mostrarDashboard();
+    }
+
+    formLogin.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const usuario = document.getElementById('usuarioAdmin').value.trim();
+      const clave = document.getElementById('claveAdmin').value.trim();
+
+      try {
+        errorLogin.style.display = 'none';
+        // Autenticación segura mediante el gestor de base de datos
+        await window.db.iniciarSesion(usuario, clave);
+        mostrarDashboard();
+      } catch (err) {
+        errorLogin.textContent = err.message || 'Error al autenticar.';
+        errorLogin.style.display = 'block';
+      }
+    });
+
+    btnCerrarSesion.addEventListener('click', () => {
+      if (window.db) window.db.cerrarSesion();
+      areaDashboard.style.display = 'none';
+      btnCerrarSesion.style.display = 'none';
+      cajaLogin.style.display = 'block';
+      formLogin.reset();
+    });
+
+    async function mostrarDashboard() {
+      cajaLogin.style.display = 'none';
+      areaDashboard.style.display = 'block';
+      btnCerrarSesion.style.display = 'inline-block';
+      await Promise.all([
+        cargarLocacionesGuardadas(),
+        cargarProspectosGuardados()
+      ]);
+    }
+
+    async function cargarProspectosGuardados() {
+      const cuerpoTablaProspectos = document.getElementById('cuerpoTablaProspectos');
+      const contadorProspectos = document.getElementById('contadorProspectos');
+      if (!cuerpoTablaProspectos || !window.db) return;
+
+      try {
+        const prospectos = await window.db.obtenerProspectos();
+        cuerpoTablaProspectos.innerHTML = '';
+
+        if (!prospectos || prospectos.length === 0) {
+          cuerpoTablaProspectos.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--texto-apagado);">No hay solicitudes o mensajes de contacto registrados todavía.</td>
+            </tr>
+          `;
+          if (contadorProspectos) contadorProspectos.textContent = '0';
+          return;
+        }
+
+        if (contadorProspectos) contadorProspectos.textContent = prospectos.length;
+
+        prospectos.forEach(p => {
+          const fechaFormateada = p.created_at 
+            ? new Date(p.created_at).toLocaleDateString('es-EC', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
+            : (p.fecha ? new Date(p.fecha).toLocaleDateString('es-EC') : 'Reciente');
+
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td style="color: var(--texto-apagado); font-size: 0.85rem;">${fechaFormateada}</td>
+            <td style="font-weight: 600; color: var(--texto-blanco);">${p.nombre || 'Sin nombre'}</td>
+            <td><a href="mailto:${p.email}" style="color: var(--dorado-suave); text-decoration: none;">${p.email || 'N/A'}</a></td>
+            <td><span class="insignia-categoria">${p.tipo || 'General'}</span></td>
+            <td>${p.area ? p.area + ' m²' : 'N/A'}</td>
+            <td>${p.ciudad || 'Ecuador'}</td>
+          `;
+          cuerpoTablaProspectos.appendChild(fila);
+        });
+      } catch (err) {
+        console.error('Error al cargar prospectos:', err);
+        cuerpoTablaProspectos.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; color: #ff6b6b;">Error al conectar con la base de datos de prospectos.</td>
+          </tr>
+        `;
+      }
+    }
+
+    async function cargarLocacionesGuardadas() {
+      const cuerpoTabla = document.getElementById('cuerpoTablaAdmin');
+      if (!cuerpoTabla || !window.db) return;
+
+      try {
+        const adicionales = await window.db.obtenerLocaciones();
+        cuerpoTabla.innerHTML = '';
+
+        if (!adicionales || adicionales.length === 0) {
+          cuerpoTabla.innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align: center; color: var(--texto-apagado);">No hay locaciones adicionales registradas. Agrega una arriba.</td>
+            </tr>
+          `;
+          actualizarContador(0);
+          return;
+        }
+
+        adicionales.forEach(loc => {
+          const nuevaFila = document.createElement('tr');
+          nuevaFila.id = `fila-${loc.id}`;
+          nuevaFila.innerHTML = `
+            <td>${loc.nombre}</td>
+            <td>${loc.ubicacion}</td>
+            <td>${loc.categoria === 'hosterias' ? 'Hosterías' : 'Airbnb'}</td>
+            <td>${loc.splats || '1.0M'}</td>
+            <td><button class="btn-accion-borrar" data-id="${loc.id}">Eliminar</button></td>
+          `;
+          cuerpoTabla.appendChild(nuevaFila);
+        });
+
+        actualizarContador(adicionales.length);
+      } catch (err) {
+        console.error('Error al cargar locaciones:', err);
+      }
+    }
+
+    function actualizarContador(cantidad) {
+      if (contadorLocaciones) {
+        contadorLocaciones.textContent = typeof cantidad === 'number' 
+          ? cantidad 
+          : document.querySelectorAll('#cuerpoTablaAdmin tr[id^="fila-"]').length;
+      }
+    }
+
+    // Guardar nueva locación con persistencia
+    const formNuevaLocacion = document.getElementById('formNuevaLocacion');
+    const mensajeAdmin = document.getElementById('mensajeAdminForm');
+
+    formNuevaLocacion.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById('nuevoNombre').value;
+      const ubicacion = document.getElementById('nuevaUbicacion').value;
+      const categoria = document.getElementById('nuevaCategoria').value;
+      const splats = document.getElementById('nuevosSplats').value || '1.0M Splats';
+
+      const nuevaData = { nombre, ubicacion, categoria, splats };
+
+      if (window.db) {
+        await window.db.guardarLocacion(nuevaData);
+      }
+
+      mensajeAdmin.style.color = 'var(--verde-activo)';
+      mensajeAdmin.textContent = '✔ Propiedad guardada con persistencia en Base de Datos.';
+      formNuevaLocacion.reset();
+      await cargarLocacionesGuardadas();
+
+      setTimeout(() => {
+        mensajeAdmin.textContent = '';
+      }, 3500);
+    });
+
+    // Delegación para botones de eliminar con persistencia
+    document.getElementById('cuerpoTablaAdmin').addEventListener('click', async (e) => {
+      if (e.target.classList.contains('btn-accion-borrar')) {
+        const fila = e.target.closest('tr');
+        const id = e.target.getAttribute('data-id');
+        if (id && window.db) {
+          await window.db.eliminarLocacion(id);
+        }
+        fila.remove();
+        actualizarContador();
+      }
+    });
+  </script>
+</body>
+</html>
