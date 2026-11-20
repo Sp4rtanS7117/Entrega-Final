@@ -1,0 +1,6 @@
+assets/models/combined.compressed.ply
+*.ply.bak
+ 
+node_modules/
+.DS_Store
+Thumbs.db
