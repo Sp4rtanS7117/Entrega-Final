@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Installation 0° • Marketing Digital 3D</title>
+
+  <!-- Fuentes desde Google Fonts sigue sin haber otra fuente -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       BARRA DE NAVEGACIÓN SUPERIOR
+       ========================================== -->
+  <header class="barra-navegacion">
+    <div class="logo">
+      <span class="punto-luz"></span>
+      <span class="nombre-marca">INSTALLATION 0°</span>
+    </div>
+
+    <!-- Menú de enlaces a las secciones -->
+    <nav class="menu-enlaces" id="menuEnlaces">
+      <a href="#inicio">Inicio</a>
+      <a href="#tecnologia">Tecnología 3D</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#contacto">Contacto</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+
+    <!-- Botones de acción rápida -->
+    <div class="acciones-nav">
+      <button id="btnAbrirChat" class="btn-secundario">Asistente IA</button>
+      <a href="#contacto" class="btn-principal btn-nav-cotizar">Cotizar Escaneo</a>
+      <!-- Botón Hamburguesa para Móviles -->
+      <button id="btnHamburguesa" class="btn-hamburguesa" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       SECCIÓN PRINCIPAL (HERO) - VISOR 3D Y PANEL HUD
+       ========================================== -->
+  <main id="inicio" class="seccion-hero">
+    
+    <!-- Imagen-->
+    <div class="fondo-respaldo" id="fondoRespaldo"></div>
+
+    <div class="contenedor-lienzo-3d" id="contenedorLienzo3D">
+      <canvas id="lienzo3D"></canvas>
+      
+      <!-- ==========================================================
+           [Viewport OpenSource] - Visor Nativo Canvas
+           ========================================================== -->
+      <!-- ========================================================== -->
+    </div>
+
+    <!-- Capa de Interfaz Táctica / HUD por encima del 3D -->
+    <div class="capa-hud">
+      
+      <!-- Interfaz superior derecha, coordenadas estilo halo ( ͡° ͜ʖ ͡°) -->
+      <div class="hud-superior">
+        <div class="etiqueta-estado">
+          <span class="luz-parpadeo"></span>
+          <span>ESCENEO 3D EN VIVO • ANDES / ECUADOR</span>
+        </div>
+        <div class="hud-coordenadas">
+          LAT: 0°00'00.0"S<br>
+          LON: 78°30'00.0"W
+        </div>
+      </div>
+
+      <!-- Decoración Motivo: Sci fi y 3D para dar mayor impacto visual. -->
+      <div class="marca-esquina esquina-arriba-izq"></div>
+      <div class="marca-esquina esquina-arriba-der"></div>
+      <div class="marca-esquina esquina-abajo-izq"></div>
+      <div class="marca-esquina esquina-abajo-der"></div>
+
+      <!-- Centro: Título de la marca y botones de puntos de vista de cámara -->
+      <div class="hero-texto-central">
+        <h1 class="titulo-principal">INSTALLATION 0°</h1>
+        <p class="subtitulo-principal">
+          Tours virtuales y gemelos digitales con tecnología 3D Gaussian Splatting para hoteles, hosterías y propiedades en Ecuador.
+        </p>
+
+        <!-- Botones para mover la cámara (Waypoints) -->
+        <div class="controles-camara">
+          <button class="btn-camara activo" data-vista="dron">● Vista Dron Exterior</button>
+          <button class="btn-camara" data-vista="interior">● Interior Cabaña</button>
+          <button class="btn-camara" data-vista="terraza">● Terraza y Paisaje</button>
+        </div>
+      </div>
+
+      <!-- Tarjetas inferiores con métricas técnicas del escaneo cosas para nerds en 3D -->
+      <div class="hud-tarjetas-inferiores">
+        <div class="tarjeta-metrica">
+          <span class="metrica-subtitulo">Escaneo Destacado</span>
+          <h4 class="metrica-titulo">Escaneo 3D de mascota</h4>
+          <div class="metrica-datos">
+            <div>
+              <strong>1.4M</strong>
+              <span>Gaussian Splats Disponibles</span>
+            </div>
+            <div>
+              <strong>98.4%</strong>
+              <span>Fidelidad Espacial</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tarjeta-metrica">
+          <span class="metrica-subtitulo">Optimización Web</span>
+          <h4 class="metrica-titulo">SuperSplat / WebGL 2.0</h4>
+          <div class="metrica-datos">
+            <div>
+              <strong>60 FPS</strong>
+              <span>Fluidez Web</span>
+            </div>
+            <div>
+              <strong>&lt; 25 MB</strong>
+              <span>PLY Comprimido</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tarjeta-metrica">
+          <span class="metrica-subtitulo">Impacto Comercial</span>
+          <h4 class="metrica-titulo">Turismo & Hotelería</h4>
+          <div class="metrica-datos">
+            <div>
+              <strong>+45%</strong>
+              <span>Conversión Reservas</span>
+            </div>
+            <div>
+              <strong>3x</strong>
+              <span>Tiempo de Visita</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra fina de progreso de carga del archivo 3D -->
+      <div class="barra-progreso-contenedor">
+        <div id="barraProgreso" class="barra-progreso-relleno"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================
+       SECCIÓN COMPARATIVA TECNOLÓGICA (FASE 9)
+       ========================================== -->
+  <section id="tecnologia" class="seccion-tecnologia">
+    <div class="contenedor-seccion">
+      <div class="encabezado-seccion">
+        <span class="insignia-seccion">Innovación 3DGS</span>
+        <h2 class="titulo-seccion">Comparativa Visual: Foto Tradicional vs. 3DGS</h2>
+        <p class="descripcion-seccion">
+          Desliza la barra para comparar una fotografía plana estándar frente a la reconstrucción con 3D Gaussian Splatting.
+        </p>
+      </div>
+
+      <!-- CI Slider -->
+      <div class="comparador-contenedor" id="comparadorVisual">
+        <div class="capa-comparador capa-antes">
+          <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1400&q=80" alt="Fotografía Tradicional">
+          <span class="etiqueta-comparador etiqueta-antes">Fotografía Plana 2D</span>
+        </div>
+        <div class="capa-comparador capa-despues" id="capaDespues">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1400&q=80" alt="Gaussian Splatting 3D">
+          <span class="etiqueta-comparador etiqueta-despues">● 3DGS Fotorrealista (1.4M Splats)</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" class="deslizador-rango" id="deslizadorComparador">
+        <div class="linea-deslizador" id="lineaDeslizador">
+          <div class="boton-manija">↔</div>
+        </div>
+      </div>
+
+      <!-- Tarjetas tecnicas -->
+      <div class="grid-ventajas-tecnicas">
+        <div class="tarjeta-ventaja">
+          <h4 class="ventaja-titulo">Reflejos y Especularidad Real</h4>
+          <p class="ventaja-desc">
+            Ventanales y cuerpos de agua reflejan la luz según el ángulo de la cámara, algo imposible en fotos 360° estáticas.
+          </p>
+        </div>
+        <div class="tarjeta-ventaja">
+          <h4 class="ventaja-titulo">Vegetación Compleja sin Mallas</h4>
+          <p class="ventaja-desc">
+            Árboles, ramas y follaje se reconstruyen con millones de elipsoides Gaussianos sin geometría rota.
+          </p>
+        </div>
+        <div class="tarjeta-ventaja">
+          <h4 class="ventaja-titulo">Streaming Ultraligero</h4>
+          <p class="ventaja-desc">
+            Gracias a la compresión vista en SuperSplat, la escena pesa menos de 25 MB y corre fluida en celular.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+   Catalogo, subir los gaussian correspondientes.
+       ========================================== -->
+  <section id="catalogo" class="seccion-catalogo">
+    <div class="contenedor-seccion">
+      <div class="encabezado-seccion">
+        <span class="insignia-seccion">Catálogo de Espacios</span>
+        <h2 class="titulo-seccion">Locaciones Capturadas</h2>
+        <p class="descripcion-seccion">
+          Explora reconstrucciones fotorrealistas con 3D Gaussian Splatting en Ecuador.
+        </p>
+      </div>
+
+      <!-- Filtros por categoría -->
+      <div class="filtros-catalogo">
+        <button class="btn-filtro activo" data-filtro="todos">Todos los Espacios</button>
+        <button class="btn-filtro" data-filtro="hosterias">Hosterías & Haciendas</button>
+        <button class="btn-filtro" data-filtro="airbnb">Airbnb & Glamping</button>
+      </div>
+
+      <!-- Cuadrícula -->
+      <div id="cuadriculaCatalogo" class="cuadricula-catalogo"></div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECCIÓN CONTACTO Y COTIZACIÓN TEXTO CORREGIDO
+       ========================================== -->
+  <section id="contacto" class="seccion-contacto">
+    <div class="contenedor-seccion seccion-contacto-grid">
+      
+      <!-- Columna izquierda: Información del proceso -->
+      <div class="info-contacto">
+        <span class="insignia-seccion">Agendamiento Técnico</span>
+        <h2 class="titulo-seccion">Digitaliza tu Propiedad</h2>
+        <p class="descripcion-seccion">
+          Coordinamos levantamientos con dron fotogramétrico y escáner láser terrestre en cualquier provincia del país.
+        </p>
+
+        <div class="pasos-trabajo">
+          <div class="item-paso">
+            <span class="numero-paso">1</span>
+            <div>
+              <strong>Levantamiento en Sitio:</strong>
+              <p>Captura en 2 a 4 horas sin interrumpir las operaciones del hospedaje.</p>
+            </div>
+          </div>
+
+          <div class="item-paso">
+            <span class="numero-paso">2</span>
+            <div>
+              <strong>Entrenamiento 3DGS:</strong>
+              <p>Optimización neural del campo de radiancia y compresión de splats.</p>
+            </div>
+          </div>
+
+          <div class="item-paso">
+            <span class="numero-paso">3</span>
+            <div>
+              <strong>Entrega Inmersiva:</strong>
+              <p>Enlace web compatible con móviles, listo para compartir por WhatsApp o web propia.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Formulario funcional -->
+      <div class="caja-formulario">
+        <form id="formularioContacto">
+          <div class="grupo-campo">
+            <label for="campoNombre">Nombre o Empresa *</label>
+            <input type="text" id="campoNombre" placeholder="Ej. Hostería Los Volcanes" required>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="campoEmail">Correo Electrónico *</label>
+            <input type="email" id="campoEmail" placeholder="contacto@hosteria.ec" required>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="campoTipo">Tipo de Propiedad</label>
+            <select id="campoTipo">
+              <option value="airbnb">Airbnb / Cabaña Individual</option>
+              <option value="hosteria">Hostería / Hotel de Campo</option>
+              <option value="glamping">Glamping / Domo Geodésico</option>
+              <option value="inmobiliaria">Desarrollo Inmobiliario</option>
+            </select>
+          </div>
+
+          <div class="grupo-campo">
+            <label for="campoArea">Área Aproximada (m²)</label>
+            <input type="number" id="campoArea" placeholder="Ej. 180">
+          </div>
+
+          <div class="grupo-campo">
+            <label for="campoCiudad">Ciudad o Provincia</label>
+            <input type="text" id="campoCiudad" placeholder="Ej. Cotopaxi, Baños, Mindo...">
+          </div>
+
+          <!-- Estimador automático en tiempo real -->
+          <div class="tarjeta-calculo-estimado" id="cajaEstimacion">
+            <div class="fila-calculo">
+              <span>Presupuesto Estimado 3DGS:</span>
+              <strong id="montoEstimado">$250 - $400 USD</strong>
+            </div>
+            <p class="calculo-detalle" id="detalleEstimacion">
+              Incluye escaneo terrestre 4K, entrenamiento de radiancia y visor web.
+            </p>
+          </div>
+
+          <button type="submit" class="btn-principal btn-enviar-formulario">
+            Solicitar Diagnóstico Técnico
+          </button>
+
+          <!-- Mensaje de estado al enviar (éxito / carga) -->
+          <div id="mensajeEstadoForm" class="mensaje-estado"></div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Ventana Modal para ver detalles / 3D -->
+  <div id="modal3D" class="modal-fondo">
+    <div class="modal-caja">
+      <button id="btnCerrarModal" class="btn-cerrar-modal">✕</button>
+      <div class="modal-cabecera">
+        <span class="insignia-modal">Visor 3D Interactivo</span>
+        <h3 id="modalTitulo" class="modal-titulo">Exploración 3D</h3>
+      </div>
+      
+      <!-- Contenedor del visor 3D en el Modal -->
+      <div class="modal-visor-3d">
+        <canvas id="lienzoModal3D"></canvas>
+        <iframe 
+          id="iframeModalSplat"
+          src="" 
+          style="width: 100%; height: 100%; border: none; position: absolute; inset: 0; z-index: 2; display: none;"
+          allow="fullscreen; xr-spatial-tracking">
+        </iframe>
+        <div class="hud-modal-overlay">
+          <span class="badge-fps">● 60 FPS • WebGL 2.0</span>
+          <span class="badge-splats" id="modalSplatsConteo">1.4M Splats</span>
+        </div>
+      </div>
+
+      <div class="modal-cuerpo">
+        <p id="modalDescripcion" class="modal-descripcion-texto">
+          Cargando datos espaciales y campo de radiancia...
+        </p>
+        <div class="modal-acciones-footer">
+          <button class="btn-secundario" id="btnReiniciarCamaraModal">↺ Centrar Cámara</button>
+          <a href="#contacto" class="btn-principal" id="btnCotizarDesdeModal">Cotizar Este Escaneo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       IA , Conectar con N8N (Ya no se pudo)
+       ========================================== -->
+  <div class="widget-chat-ia">
+    
+    <!-- Ventana de conversación -->
+    <div id="ventanaChatIA" class="ventana-chat">
+      <div class="cabecera-chat">
+        <div class="estado-asistente">
+          <span class="punto-luz"></span>
+          <strong>Asistente Virtual</strong>
+        </div>
+        <button id="btnCerrarChat" class="btn-cerrar-chat">✕</button>
+      </div>
+
+      <div id="historialMensajes" class="mensajes-chat">
+        <div class="globo-mensaje mensaje-bot">
+          ¡Hola! Soy el asistente de <strong>Installation 0°</strong>. ¿Quieres cotizar un escaneo para tu local o necesitas ideas para promocionar tu propiedad?
+        </div>
+      </div>
+
+      <!-- Sugerencias de preguntas rápidas (Fase 12) -->
+      <div class="sugerencias-chat" id="sugerenciasChat">
+        <button class="chip-pregunta" data-consulta="¿Cuánto cuesta escanear un Airbnb?">💰 Precios Airbnb</button>
+        <button class="chip-pregunta" data-consulta="¿Tienen demos en Mindo o Galápagos?">📍 Ver Demos</button>
+        <button class="chip-pregunta" data-consulta="Generar copy publicitario para mi cabaña">✍️ Texto para Cabaña</button>
+      </div>
+
+      <div class="barra-escribir-chat">
+        <input type="text" id="inputChat" placeholder="Escribe tu duda sobre precios o zonas...">
+        <button id="btnEnviarMensaje" class="btn-principal btn-enviar-chat">Enviar</button>
+      </div>
+    </div>
+
+    <!-- Botón flotante para abrir o cerrar -->
+    <button id="btnFlotanteIA" class="btn-flotante-ia">
+      <span class="punto-luz"></span>
+      <span>Asistente IA</span>
+    </button>
+  </div>
+
+  <!-- SDK de Supabase (Backend en la nube) y Módulo de Base de Datos -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/db.js"></script>
+
+  <!-- Archivos de JavaScript -->
+  <!-- ==========================================================
+       [Viewport OpenSource] - Carga del Motor Nativo
+       ========================================================== -->
+  <script src="js/nativeViewport.js"></script>
+  <!-- ========================================================== -->
+  <script src="js/splatViewer.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
